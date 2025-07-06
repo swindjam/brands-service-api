@@ -1,21 +1,6 @@
 services:
 
-#  mongodb:
-#    image: mongo:8.0.9
-#    restart: unless-stopped
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: example
-#      MONGO_INITDB_DATABASE: main
-#    ports:
-#      - 27017:27017
-#    volumes:
-#      - ./data:/data/db:delegated
-#      - ./src/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-
   node:
-#    depends_on:
-#      - mongodb
     image: node:24.3.0
     volumes:
       - ./:/app:delegated

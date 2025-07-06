@@ -15,6 +15,7 @@ export default class BrandDao {
             }
         } catch (error: any) {
             console.error(`Error finding the brand: ${error}`);
+            return undefined;
         }
         return undefined;
     }

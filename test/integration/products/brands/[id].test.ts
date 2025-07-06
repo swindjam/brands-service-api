@@ -1,0 +1,81 @@
+import buildApp from '../../../../src/app';
+import {FastifyInstance} from "fastify";
+
+jest.mock('../../../../src/utils/getStream');
+
+describe('/products/brands/[id]', () => {
+    let app: FastifyInstance;
+
+    beforeAll(() => {
+        app = buildApp();
+    });
+
+    afterAll(() => {
+        app.close();
+    });
+
+    describe('2xx', () => {
+        it('Should fetch products by brand id, for a brand that has products', async () => {
+            const response = await app.inject({
+                method: 'GET',
+                url: '/products/brands/5a4e6d14-53d4-4583-bd6b-49f81b021d24'
+            });
+            expect(response.statusCode).toBe(200);
+
+            const { products } = JSON.parse(response.body);
+            expect(products).toHaveLength(1);
+            expect(products[0]).toMatchObject({
+                "id": "5a3fe6f7-7796-44ca-84fe-70d4f751527d",
+                "brand_id": "5a4e6d14-53d4-4583-bd6b-49f81b021d24",
+                "label": "One Cinema Ticket",
+            });
+        });
+
+        it('Should fetch products by brand id, for a brand that has consolidated products', async () => {
+            const response = await app.inject({
+                method: 'GET',
+                url: '/products/brands/69be9b8c-5b95-4792-a05c-652d2f15a62f'
+            });
+            expect(response.statusCode).toBe(200);
+
+            const { products } = JSON.parse(response.body);
+            expect(products).toHaveLength(1);
+            expect(products[0]).toMatchObject({
+                "id": "26f7a82a-30a8-44e4-93cb-499a256d0ce9",
+                "brand_id": "66462cd6-e43c-4ab6-8e6f-004ca189e4b9",
+                "label": "Coffee",
+            });
+        });
+
+        it('Should fetch products by brand id, fora brand that has products and consolidated products', async () => {
+            const response = await app.inject({
+                method: 'GET',
+                url: '/products/brands/15538f17-95bd-4cc4-9cf3-893a21d16028'
+            });
+            expect(response.statusCode).toBe(200);
+
+            const { products } = JSON.parse(response.body);
+            expect(products).toHaveLength(2);
+            expect(products[0]).toMatchObject({
+                "id": "26f7a82a-30a8-44e4-93cb-499a256d0ce9",
+                "brand_id": "66462cd6-e43c-4ab6-8e6f-004ca189e4b9",
+                "label": "Coffee",
+            });
+            expect(products[1]).toMatchObject({
+                "id": "66ed94ca-64cd-4190-81f9-ef1e5d157b4e",
+                "brand_id": "15538f17-95bd-4cc4-9cf3-893a21d16028",
+                "label": "No QRs",
+            });
+        });
+    });
+
+    describe('4xx', () => {
+       it('Should 404 when unable to fetch a list of products by brand id', async () => {
+           const response = await app.inject({
+               method: 'GET',
+               url: '/products/brands/unknown'
+           });
+           expect(response.statusCode).toBe(404);
+       });
+    });
+});
