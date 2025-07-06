@@ -4,7 +4,6 @@ import ProductService from "../../../../service/ProductService";
 import StoreService from "../../../../service/StoreService";
 import BrandService from "../../../../service/BrandService";
 
-// Get all stores entities for a products by products-id
 export default async (fastify: FastifyInstance) => (
     fastify.route({
         method: 'GET',

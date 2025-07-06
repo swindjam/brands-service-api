@@ -15,4 +15,15 @@ export default class StoreDao {
         }
         return [];
     }
+
+    async getStore(id: string): Promise<Store|undefined> {
+        if(id === 'found') {
+            return   {
+                id: 'store',
+                brand_id: 'found',
+                name: 'store name'
+            };
+        }
+        return undefined;
+    }
 }

@@ -13,6 +13,7 @@
     "target": "ES2022",
     "module": "CommonJS",
     "rootDir": "./src",
-    "outDir": "./dist"
-  }
+    "outDir": "./dist",
+  },
+  "exclude": ["jest.config.*", "test/", "src/**/*.test.ts", "src/**/__mocks__/*"]
 }

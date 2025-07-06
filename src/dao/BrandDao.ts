@@ -13,7 +13,7 @@ export default class BrandDao {
                     return chunk.value.find((brand: Brand) => brand.id === id) as Brand;
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(`Error finding the brand: ${error}`);
             return undefined;
         }

@@ -7,7 +7,7 @@ describe("ProductService", () => {
 
     describe('getProductsForBrand', () => {
 
-        it("Should be able to get products", async () => {
+        it("Should be able to get _id", async () => {
             const result = await productService.getProductsForBrand({
                 id: 'brand',
                 name: 'brand',

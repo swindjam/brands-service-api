@@ -13,4 +13,8 @@ export default class StoreService {
     async getStoresForBrand(brand: Brand): Promise<Store[]> {
         return await this.storeDao.getStoresForBrand(brand);
     }
+
+    async getStore(id: string) {
+        return await this.storeDao.getStore(id);
+    }
 }

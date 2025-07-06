@@ -13,7 +13,7 @@ export default class ProductDao {
                     return chunk.value.products.filter((product: Product) => ids.includes(product.id)) as Product[];
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(`Error finding the products: ${error}`);
         }
         return [];
@@ -29,7 +29,7 @@ export default class ProductDao {
                     return chunk.value.products.find((product: Product) => product.id === id) as Product;
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(`Error finding the product: ${error}`);
         }
         return undefined;

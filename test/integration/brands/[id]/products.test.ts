@@ -3,7 +3,7 @@ import {FastifyInstance} from "fastify";
 
 jest.mock('../../../../src/utils/getStream');
 
-describe('/products/brands/[id]', () => {
+describe('/brands/_id/products', () => {
     let app: FastifyInstance;
 
     beforeAll(() => {
@@ -15,10 +15,10 @@ describe('/products/brands/[id]', () => {
     });
 
     describe('2xx', () => {
-        it('Should fetch products by brand id, for a brand that has products', async () => {
+        it('Should fetch _id by brand id, for a brand that has _id', async () => {
             const response = await app.inject({
                 method: 'GET',
-                url: '/products/brands/5a4e6d14-53d4-4583-bd6b-49f81b021d24'
+                url: '/brands/5a4e6d14-53d4-4583-bd6b-49f81b021d24/products'
             });
             expect(response.statusCode).toBe(200);
 
@@ -31,10 +31,10 @@ describe('/products/brands/[id]', () => {
             });
         });
 
-        it('Should fetch products by brand id, for a brand that has consolidated products', async () => {
+        it('Should fetch _id by brand id, for a brand that has consolidated _id', async () => {
             const response = await app.inject({
                 method: 'GET',
-                url: '/products/brands/69be9b8c-5b95-4792-a05c-652d2f15a62f'
+                url: '/brands/69be9b8c-5b95-4792-a05c-652d2f15a62f/products'
             });
             expect(response.statusCode).toBe(200);
 
@@ -47,10 +47,10 @@ describe('/products/brands/[id]', () => {
             });
         });
 
-        it('Should fetch products by brand id, fora brand that has products and consolidated products', async () => {
+        it('Should fetch _id by brand id, fora brand that has _id and consolidated _id', async () => {
             const response = await app.inject({
                 method: 'GET',
-                url: '/products/brands/15538f17-95bd-4cc4-9cf3-893a21d16028'
+                url: '/brands/15538f17-95bd-4cc4-9cf3-893a21d16028/products'
             });
             expect(response.statusCode).toBe(200);
 
@@ -70,10 +70,10 @@ describe('/products/brands/[id]', () => {
     });
 
     describe('4xx', () => {
-       it('Should 404 when unable to fetch a list of products by brand id', async () => {
+       it('Should 404 when unable to fetch a list of _id by brand id', async () => {
            const response = await app.inject({
                method: 'GET',
-               url: '/products/brands/unknown'
+               url: '/brands/unknown/products'
            });
            expect(response.statusCode).toBe(404);
        });
