@@ -14,16 +14,15 @@ export default async (fastify: FastifyInstance) => (
                     products: Type.Array(
                         Type.Object({
                             id: Type.String()
+                            // ...other product properties
                         })
                     )
                 }),
-                403: Type.Boolean(),
-                404: Type.String(),
-                500: Type.Number(),
+                404: Type.String()
             }
         },
-        handler: async (request: FastifyRequest<{ Params: {  id: string } }>, reply: FastifyReply) => {
-            const { id } = request.params;
+        handler: async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+            const {id} = request.params;
 
             const brandService = new BrandService();
             const productService = new ProductService();

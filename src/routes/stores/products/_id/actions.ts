@@ -12,15 +12,14 @@ export default async (fastify: FastifyInstance) => (
         schema: {
             response: {
                 200: Type.Object({
-                    products: Type.Array(
+                    stores: Type.Array(
                         Type.Object({
-                            id: Type.String() // Brand id
+                            id: Type.String()
+                            // ...other store properties
                         })
                     )
                 }),
-                403: Type.Boolean(),
-                404: Type.String(),
-                500: Type.Number(),
+                404: Type.String()
             }
         },
         handler: async (request: FastifyRequest<{ Params: {  id: string } }>, reply: FastifyReply) => {

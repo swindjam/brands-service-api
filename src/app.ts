@@ -11,25 +11,17 @@ export default () => {
 
     app.withTypeProvider<TypeBoxTypeProvider>()
 
-    app.decorate('verifyUserAndPassword', function (request: FastifyRequest, reply: FastifyReply, done: any) {
-        // your validation logic
-
-        console.log('user password')
-
-        done() // pass an error if the authentication fails
-    })
-
-    // Setup default caching of 5 seconds (would be best not to use this for prod)
+    // Setup default caching of 5 seconds as a demo
     app.register(
         fastifyCaching,
-        { privacy: fastifyCaching.privacy.NOCACHE, expiresIn: 5, cacheSegment: 'mainCache'},
-        // (err) => { if (err) throw err }
+        { privacy: fastifyCaching.privacy.PUBLIC, expiresIn: 5, cacheSegment: 'mainCache'}
     );
 
+    // Setup routes dynamically
     app.register(autoLoad, {
         dir: join(__dirname, 'routes'),
         routeParams: true
-    })
+    });
 
     app.setErrorHandler(async (err, request, reply) => {
         if (err.validation) {
