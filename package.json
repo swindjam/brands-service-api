@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "test": "jest",
+    "test:unit": "jest",
+    "test:integration": "jest jest.config.ts",
     "lint": "eslint src/**/**.ts"
   },
   "repository": {

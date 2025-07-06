@@ -1,25 +1,33 @@
-# Engineer Tech Test
+# Brands Service API
 
-Thanks for your interest in joining our team! This test is an example of the sort of work we do here at huggg.
+This is an API to return data on brands, and their associated products and stores.
 
-## Specification
+# Overview
 
-You have a service which returns all relevant information for our brands, which can potentially be a very large amount of information. Your task is to provide access to discrete pieces of information via HTTP GET endpoints. These should include:
+The data is stored in` src/brands.json` (with an extended version in `src/brands-generated.json`).
 
-- Get all product entities for a brand by brand-id
-- Get all store entities for a product by product-id
+*Note*: the extended data includes all the original data, with generated data added for the stores, brands and products to make a larger dataset.
 
-The format of the data your service should return is JSON. You should make a mock service which returns this.
+The following diagram shows the structure and relationships for this data.
 
-Note: Some of our brands and products are "consolidated" which means the product is available at multiple brands + stores. So a single product may belong to multiple brands, as well as its "true" parent. When returning a brand's products, these consolidated products should also be returned.
+// TODO insert diagram
 
-## What we are looking for
+# Architecture
 
-- We're keen on seeing your best work here so make sure you take your time to fully understand the data and the problem
-- Use of automated testing
-- Have considered performance as the real dataset is much larger than the sample dataset
-- TypeScript usage
+The app code is located in `src`, starting from `app.ts`. Below is an API architecture diagram
 
-## How we do this at Huggg
+// TODO insert diagram
 
-At Huggg we use TypeScript, Fastify, Typebox, Jest, Docker and others to build our services so feel free to use those technologies if you like but we're happy for you to approach this with whatever you are comfortable with.
+# Running the app
+
+To run the app, run `docker-compose up` from the route directory. This will start a node instance that will run the API and rebuild on changes to the `src` code.
+
+The node API has a memory restriction in place, to test scalability with a larger data set (i.e. that the app will nor suffer an OOM).
+
+# Testing the app
+
+There are unit and integration tests setup for the API.
+
+To run the unit tests, run `npm test:unit`
+
+To run the integration tests, run `npm run test:integration`

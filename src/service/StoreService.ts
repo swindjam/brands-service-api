@@ -10,7 +10,7 @@ export default class StoreService {
         this.storeDao = storeDao;
     }
 
-    getStoresForBrand(brand: Brand): Store[] {
-        return this.storeDao.getStoresForBrand(brand);
+    async getStoresForBrand(brand: Brand): Promise<Store[]> {
+        return await this.storeDao.getStoresForBrand(brand);
     }
 }

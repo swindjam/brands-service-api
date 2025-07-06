@@ -1,14 +1,37 @@
-import { embedded } from '../data/brands.json';
-const { products } = embedded;
 import { Product } from "../types/Product";
+import getStream from "../utils/getStream";
 
 export default class ProductDao {
 
-    getProducts(ids: string[]): Product[] {
-        return products.filter((product) => ids.includes(product.id)) as Product[];
+    async getProducts(ids: string[]): Promise<Product[]> {
+        const stream = getStream();
+
+        try {
+            for await (const chunk of stream) {
+                if(chunk.key === 'embedded') {
+                    stream.destroy();
+                    return chunk.value.products.filter((product: Product) => ids.includes(product.id)) as Product[];
+                }
+            }
+        } catch (error: any) {
+            console.error(`Error finding the products: ${error}`);
+        }
+        return [];
     }
 
-    getProduct(id: string): Product|undefined {
-        return products.find((product) => product.id === id);
+    async getProduct(id: string): Promise<Product|undefined> {
+        const stream = getStream();
+
+        try {
+            for await (const chunk of stream) {
+                if(chunk.key === 'embedded') {
+                    stream.destroy();
+                    return chunk.value.products.find((product: Product) => product.id === id) as Product;
+                }
+            }
+        } catch (error: any) {
+            console.error(`Error finding the product: ${error}`);
+        }
+        return undefined;
     }
 }

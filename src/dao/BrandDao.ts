@@ -9,6 +9,7 @@ export default class BrandDao {
         try {
             for await (const chunk of stream) {
                 if(chunk.key === 'data') {
+                    stream.destroy();
                     return chunk.value.find((brand: Brand) => brand.id === id) as Brand;
                 }
             }

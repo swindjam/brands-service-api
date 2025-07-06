@@ -25,8 +25,14 @@ services:
     ports:
       - 3000:3000
     environment:
+      BRANDS_FILENAME: brands.json
+#      BRANDS_FILENAME: brands-generated.json
       DB_USER: admin
       DB_PASSWORD: abc123
       DB_HOST: host.docker.internal
       DB_PORT: 27017
       DB_NAME: main
+    deploy:
+      resources:
+        limits:
+          memory: 250m

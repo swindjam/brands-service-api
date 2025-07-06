@@ -10,15 +10,15 @@ export default class ProductService {
         this.productDao = productDao;
     }
 
-    getProductsForBrand(brand: Brand): Product[] {
+    async getProductsForBrand(brand: Brand): Promise<Product[]> {
         const productIds = [
             ...brand.products,
             ...brand.consolidated_products
         ];
-        return this.productDao.getProducts(productIds);
+        return await this.productDao.getProducts(productIds);
     }
 
-    getProduct(id: string): Product|undefined {
-        return this.productDao.getProduct(id);
+    async getProduct(id: string): Promise<Product|undefined> {
+        return await this.productDao.getProduct(id);
     }
 }
