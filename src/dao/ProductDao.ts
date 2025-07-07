@@ -4,9 +4,8 @@ import getStream from "../utils/getStream";
 export default class ProductDao {
 
     async getProducts(ids: string[]): Promise<Product[]> {
-        const stream = getStream();
-
         try {
+            const stream = getStream();
             for await (const chunk of stream) {
                 if(chunk.key === 'embedded') {
                     stream.destroy();
@@ -15,14 +14,14 @@ export default class ProductDao {
             }
         } catch (error: unknown) {
             console.error(`Error finding the products: ${error}`);
+            throw error;
         }
         return [];
     }
 
     async getProduct(id: string): Promise<Product|undefined> {
-        const stream = getStream();
-
         try {
+            const stream = getStream();
             for await (const chunk of stream) {
                 if(chunk.key === 'embedded') {
                     stream.destroy();
@@ -31,6 +30,7 @@ export default class ProductDao {
             }
         } catch (error: unknown) {
             console.error(`Error finding the product: ${error}`);
+            throw error;
         }
         return undefined;
     }

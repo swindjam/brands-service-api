@@ -4,9 +4,8 @@ import getStream from '../utils/getStream';
 export default class BrandDao {
 
     async getBrand(id: string): Promise<Brand|undefined> {
-       const stream = getStream();
-
         try {
+            const stream = getStream();
             for await (const chunk of stream) {
                 if(chunk.key === 'data') {
                     stream.destroy();
@@ -15,7 +14,7 @@ export default class BrandDao {
             }
         } catch (error: unknown) {
             console.error(`Error finding the brand: ${error}`);
-            return undefined;
+            throw error;
         }
         return undefined;
     }

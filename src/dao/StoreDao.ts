@@ -5,9 +5,8 @@ import getStream from "../utils/getStream";
 export default class StoreDao {
 
     async getStoresForBrand(brand: Brand): Promise<Store[]> {
-        const stream = getStream();
-
         try {
+            const stream = getStream();
             for await (const chunk of stream) {
                 if(chunk.key === 'embedded') {
                     stream.destroy();
@@ -16,14 +15,14 @@ export default class StoreDao {
             }
         } catch (error: unknown) {
             console.error(`Error finding the stores: ${error}`);
+            throw error;
         }
         return [];
     }
 
     async getStore(id: string): Promise<Store|undefined> {
-        const stream = getStream();
-
         try {
+            const stream = getStream();
             for await (const chunk of stream) {
                 if(chunk.key === 'embedded') {
                     stream.destroy();
@@ -32,6 +31,7 @@ export default class StoreDao {
             }
         } catch (error: unknown) {
             console.error(`Error finding the stores: ${error}`);
+            throw error;
         }
         return undefined;
     }
