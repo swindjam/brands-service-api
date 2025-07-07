@@ -8,9 +8,14 @@ The data is stored in` src/brands.json` (with an extended version in `src/brands
 
 *Note*: the extended data includes all the original data, with generated data added for the embedded stores and products to make a larger dataset. The brands (`data` property is left unchanged to comply with the `per_page`property).
 
-The following diagram shows the structure and relationships for this data.
+The following diagram shows the structure and relationships for this data, but to describe it we have:
+- Brands
+- Products
+- Stores
 
-// TODO insert diagram
+The main data is for brands, which references stores and products (both direct and consolidated) by id. These references can be used to look up the products and stores. Likewise, from the product and store, we can lookup the brand via the brand_id.
+
+![img.png](img.png)
 
 ### Assumptions
 
@@ -32,6 +37,7 @@ The following assumptions have been taken during the design of this API:
 - A HTTPS setup is unnecessary, as this would be handled via a reverse proxy in a production version of the app, as per the Fastify recommendations (see https://fastify.dev/docs/latest/Guides/Recommendations/#use-a-reverse-proxy).
 - A simplified cache mechanism is in place to demonstrate that this data should be cached, although in a production application it is recommended that this be behind a cache provider (such as Fastly or Varnish) for resilience and extra features (e.g. deployed in multiple locales).
 - We should be more specific with 5xx errors, e.g. setting a timeout for the API routes with a 504 response to reduce the load on the system in production.
+- The responses from this API are not currently pagination, either by a page or start and limit parameters, but this should be added to reduce the response sizes and prevent unnecessary data transfer.
 
 # Running the app
 
