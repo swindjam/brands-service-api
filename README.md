@@ -45,6 +45,13 @@ To run the app, run `docker-compose up` from the route directory. This will star
 
 The node API has a memory restriction in place, to test scalability with a larger data set (i.e. that the app will nor suffer an OOM).
 
+Example links:
+- http://localhost:3000/brands/5a4e6d14-53d4-4583-bd6b-49f81b021d24
+- http://localhost:3000/brands/5a4e6d14-53d4-4583-bd6b-49f81b021d24/products
+- http://localhost:3000/products/5a3fe6f7-7796-44ca-84fe-70d4f751527d
+- http://localhost:3000/products/5a3fe6f7-7796-44ca-84fe-70d4f751527d/stores
+- http://localhost:3000/stores/15af2cdc-f352-11e8-80cd-02e611b48058
+
 # Testing the app
 
 There are unit and integration tests setup for the API.
